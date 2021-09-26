@@ -15,12 +15,16 @@ public class JavaEE8Resource {
 
     @GET
     public Response ping() {
-        String env = "";
-        env += System.getenv("HOSTNAME");
+        String env = System.getenv("HOSTNAME");
         InetAddress addr;
         try {
             addr = InetAddress.getLocalHost();
-            env += " | " + addr.getHostAddress();
+            if (env == null) {
+                env = System.getenv().toString() + System.lineSeparator();
+            } else {
+                env += " | ";
+            }
+            env += addr.getHostAddress();
         } catch (UnknownHostException ex) {
             env = ex.getMessage();
         }
