@@ -16,7 +16,7 @@ public class JavaEE8Resource {
     @GET
     public Response ping() {
         String env = "";
-        env += System.getenv().get("hostname");
+        env += System.getenv().get("HOSTNAME");
         InetAddress addr;
         try {
             addr = InetAddress.getLocalHost();
