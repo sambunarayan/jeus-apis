@@ -15,6 +15,7 @@ public class JavaEE8Resource {
 
     @GET
     public Response ping() {
+        // Get POD name
         String env = System.getenv("HOSTNAME");
         InetAddress addr;
         try {
