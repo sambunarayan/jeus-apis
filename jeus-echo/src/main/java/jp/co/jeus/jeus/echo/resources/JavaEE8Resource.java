@@ -29,7 +29,6 @@ public class JavaEE8Resource {
         } catch (UnknownHostException ex) {
             env = ex.getMessage();
         }
-        // Response
         return Response
                 .ok(env)
                 .build();
