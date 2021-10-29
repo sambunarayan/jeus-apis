@@ -28,7 +28,7 @@ dependencies {
     implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
     implementation 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.14'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5,6'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.5.6'
 }
 
 test {

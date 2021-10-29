@@ -3,7 +3,7 @@ package jp.co.jeus.web.dto;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-//@Getter
+@Getter
 @RequiredArgsConstructor
 public class HelloResponseDto {
     private final String name;
