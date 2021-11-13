@@ -41,67 +41,28 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-war {
-    enabled = true
-    archiveName 'jeus-todo.war'
+def defaultEncoding = 'UTF-8'
+tasks.withType(AbstractCompile)*.options*.encoding = defaultEncoding
+tasks.withType(GroovyCompile)*.groovyOptions*.encoding = defaultEncoding
+
+javadoc {
+    options.charSet = 'UTF-8'
+    options.encoding = 'UTF-8'
 }
-// 各ファイル名
-def templateFile = 'application_template.properties'
-def configFile = 'application.properties'
-// 対象の環境名（後に値を代入する）
-def targetEnv = ''
 
-task replaceConfig {
-    description 'Replace application.properties environment.'
-    doLast {
-        println '　　　　start replacing :' + targetEnv
-        // コピー実行部分
-        copy {
-            // from: コピーするのファイルのあるディレクトリを指定する
-            from '.'
-            // include: 今回はコピーするファイル名を指定している
-            include templateFile
-            // コピー先のディレクトリ
-            into 'src/main/resources'
-            // application.propertiesにリネームする
-            rename(templateFile, configFile)
-
-            // application_template内の${buildEnv}を置き換える
-            expand([
-                    buildEnv: targetEnv
-            ])
-            println "　　　　replacing finished"
-        }
-    }
-    // 置き換えタスクが終了したらwarコマンドでwar出力する
-    finalizedBy {
-        war
+task copyConfig(type:Copy, description: '環境毎のファイルをコピーします') {
+    if (project.hasProperty('env')) {
+        from "src/main/resources/env/${env}"
+        into "src/main/resources"
+    } else {
+        println "use default environment"
     }
 }
 
-task warProduct {
-    // groupを設定することで Gradle Tasksビューのbuildの中に表示される
-    group = 'build'
-    description 'Create war file for product environment.'
-
-    doLast {
-        // targetEnvを設定する
-        targetEnv = 'product'
-    }
-    // targetEnv設定後、replaceConfigタスクを実行する
-    finalizedBy {
-        replaceConfig
+jar {
+    manifest {
+        attributes "Main-Class" : "Application"
     }
 }
 
-// devもProductと同様
-task warDev {
-    group = 'build'
-    description 'Create war file for dev environment.'
-    doLast {
-        targetEnv = 'dev'
-    }
-    finalizedBy {
-        replaceConfig
-    }
-}
+jar.dependsOn  copyConfig
