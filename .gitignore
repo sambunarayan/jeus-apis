@@ -1,7 +1,6 @@
 /jeus-echo/target/
 /jeus-echo/nb-configuration.xml
 jeus-todo/build/
-jeus-todo/gradle/
 jeus-todo/.gradle/*
 jeus-todo/.idea/*
 jeus-todo/.idea/compiler.xml
