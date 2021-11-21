@@ -61,9 +61,7 @@ task copyConfig(type:Copy, description: '環境毎のファイルをコピーし
 }
 
 jar {
-    manifest {
-        attributes "Main-Class" : "jp.co.jeus.Application"
-    }
+    enabled = true
 }
 
 jar.dependsOn  copyConfig
