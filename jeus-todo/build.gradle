@@ -60,8 +60,9 @@ task copyConfig(type:Copy, description: '環境毎のファイルをコピーし
     }
 }
 
-jar {
-    enabled = true
+bootJar {
+    baseName = 'jeus-todo'
+    version =  '1.0.0'
 }
 
 jar.dependsOn  copyConfig
