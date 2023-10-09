@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jeus-echo-spring-deployment
+  labels:
+    app: jeus-echo-spring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jeus-echo-spring
+  template:
+    metadata:
+      labels:
+        app: jeus-echo-spring
+    spec:
+      containers:
+      - name: jeus-echo-spring
+        image: jeus-echo-spring:1.0
+        ports:
+        - containerPort: 9091
